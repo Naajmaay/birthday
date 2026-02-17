@@ -1,0 +1,183 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
+
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* REMOVE THIS (it was breaking layout)
+*:before,
+*:after {
+  content: "";
+  position: absolute;
+}
+*/
+
+/* ===== BODY ===== */
+html, body {
+  width: 100%;
+  height: 100vh;
+  font-family: 'Dancing Script', cursive;
+  background: #ffe6f0; /* soft baby pink */
+  color: #c2185b; /* darker pink for visibility */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  perspective: 1500px;
+}
+
+/* ===== ALBUM ===== */
+.album {
+  width: 600px;
+  height: 700px;
+  position: relative;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transform: scale(0.5);
+  transition: 1s;
+}
+
+.album--open {
+  transform: translate(65px, 0) rotateX(25deg) rotateZ(25deg) scale(0.5);
+}
+
+/* ===== COVER PAGE ===== */
+.cover-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 3.5rem;
+  text-align: center;
+  color: #e91e63;
+}
+
+/* ===== PAPER ===== */
+.album__paper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform-origin: 0 50%;
+  transform-style: preserve-3d;
+  transition: 1s;
+}
+
+.album__paper.open {
+  transform: rotateY(-180deg);
+}
+
+/* ===== PAGES ===== */
+.album__page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background: #fff0f5; /* light blush page */
+  border-radius: 10px;
+}
+
+.album__page.back {
+  transform: rotateY(180deg);
+  background: #ffd6e7;
+}
+
+/* ===== ALBUM DETAILS ===== */
+.album__back {
+  width: 3em;
+  height: 700px;
+  background: #ffb6c1;
+  position: absolute;
+  left: -3em;
+  top: 0;
+  transform-origin: 100% 100%;
+  transform: rotateY(-90deg);
+}
+
+.album__shadow {
+  position: absolute;
+  width: 600px;
+  height: 700px;
+  box-shadow: 15px 15px 30px rgba(0,0,0,0.2);
+}
+
+.album__bottom {
+  position: absolute;
+  bottom: 0;
+  width: 600px;
+  height: 3em;
+  background: #ffc0cb;
+  transform-origin: 100% 100%;
+  transform: rotateX(90deg);
+}
+
+/* ===== BIRTHDAY PAGE ===== */
+.birthday-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  color: #d81b60;
+}
+
+.big-heart {
+  font-size: 4rem;
+  margin-top: 20px;
+}
+
+/* ===== CONTENT IMAGES ===== */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 80px 1fr 1fr;
+  height: 100%;
+  padding: 20px;
+  gap: 15px;
+}
+
+.content__title {
+  grid-column: 1 / 3;
+  font-size: 2.5rem;
+  text-align: center;
+  color: #c2185b;
+}
+
+/* IMAGE CONTAINERS */
+.content__img1,
+.content__img2,
+.content__img3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* IMAGES */
+.content img {
+  width: 100%;
+  height: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  border: 4px solid white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* ===== MOBILE ===== */
+@media screen and (max-width: 768px) {
+  body {
+    overflow: visible;
+  }
+  .album {
+    transform: scale(0.35);
+  }
+}

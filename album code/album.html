@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="album.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+  <title>Memory Board</title>
+</head>
+
+<body>
+<div id="app">
+  <div class="container">
+    <div class="album" :class="{ 'album--open': isOpenedTop }">
+
+      <!-- COVER PAGE -->
+      <div
+        class="album__paper"
+        :style="{ zIndex: isOpenedTop ? 0 : items.length + 1 }"
+        :class="{ 'open': isOpenedTop }"
+        @click="topOpen(isOpenedTop)">
+
+        <div class="album__page front"
+             :style="{ transform: `translateZ(0.${items.length + 1}px)` }">
+
+          <div class="cover-content">
+            <h1>Happy Birthday ❤️</h1>
+          </div>
+
+        </div>
+
+        <div class="album__page back"></div>
+      </div>
+
+      <!-- INSIDE PAGES -->
+      <div
+        class="album__paper"
+        v-for="(page, idx) in items"
+        :key="idx"
+        :style="{ zIndex: page.isOpen ? idx + 1 : items.length - idx }"
+        :class="{ 'open': page.isOpen }"
+        @click="idx + 1 === items.length ? reset() : open(idx, page.isOpen)">
+
+        <div class="album__page front"
+             :style="{ transform: `translateZ(0.${items.length - idx}px)` }">
+
+          <div class="content">
+
+            <!-- If it's the first inside page -->
+            <div v-if="idx === 0" class="birthday-page">
+              <h1>Happy Birthday</h1>
+              <div class="big-heart">❤️</div>
+            </div>
+
+            <!-- Other pages show images -->
+            <template v-else>
+              <div class="content__title">{{ page.title }}</div>
+
+              <div v-if="page.img1" class="content__img1">
+                <img :src="page.img1" />
+              </div>
+
+              <div v-if="page.img2" class="content__img2">
+                <img :src="page.img2" />
+              </div>
+
+              <div v-if="page.img3" class="content__img3">
+                <img :src="page.img3" />
+              </div>
+            </template>
+
+          </div>
+
+        </div>
+
+        <div class="album__page back"></div>
+      </div>
+
+      <div class="album__back"></div>
+      <div class="album__bottom"></div>
+      <div class="album__shadow"></div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+new Vue({
+  el: "#app",
+  data: {
+    isOpenedTop: false,
+    items: [
+      {
+        title: "Intro Page",
+        img1: null,
+        img2: null,
+        img3: null,
+        isOpen: false
+      },
+      {
+        title: "Fun Memories",
+        img1: "image1.jpeg",
+        img2: "image2.jpeg",
+        img3: "image3.jpeg",
+        isOpen: false
+      },
+      {
+        title: "Cute Moments",
+        img1: "image4.jpeg",
+        img2: "image5.jpeg",
+        img3: "image6.jpeg",
+        isOpen: false
+      }
+    ]
+  },
+  methods: {
+    topOpen(open) {
+      this.isOpenedTop = !open;
+    },
+    open(idx, open) {
+      this.items[idx].isOpen = !open;
+    },
+    reset() {
+      this.items.forEach(page => page.isOpen = false);
+      this.isOpenedTop = false;
+    }
+  }
+});
+</script>
+
+</body>
+</html>
